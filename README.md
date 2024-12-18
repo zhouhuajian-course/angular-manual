@@ -17,4 +17,6 @@ export class HomeComponent {
   }
 }
 ```
-4. 
+4. 服务端渲染 Server-Side Rendering (SSR) `https://angular.dev/guide/ssr`
+5. Static Site Generation (SSG/Prerendering) `https://angular.dev/guide/prerendering`
+6. `angular.json` 叫 Angular 工作区配置 `Angular workspace configuration` `https://angular.dev/reference/configs/workspace-config#alternate-build-configurations.`

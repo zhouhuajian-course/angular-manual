@@ -7,7 +7,7 @@ https://github.com/angular/angular
 
 双花括号`{{}}`——元素内容、方括号`[]`——元素属性、圆括号`()`——元素事件
 
-`@if`、`@for`
+`@if`、`@else`、`@for`
 
 1. Angular 应用是围绕组件构建的，组件是 Angular 的构建块。组件包含代码、HTML 布局和 CSS 样式信息，这些信息提供应用中元素的功能和外观。在 Angular 中，组件可以包含其他组件。应用的功能和外观可以划分并划分为组件。Angular apps are built around components, which are Angular's building blocks. `https://angular.dev/tutorials/first-app/02-HomeComponent`
 2. Angular 使用 TypeScript 来充分利用强类型编程环境。强类型检查可降低应用中的一个元素向另一个元素发送格式错误的数据的可能性。此类类型不匹配错误会被 TypeScript 编译器捕获，许多此类错误也可以在您的 IDE 中捕获。`https://angular.dev/tutorials/first-app/04-interfaces`
@@ -110,3 +110,56 @@ export class UserProfile {
   cancelSubscription(event: Event) { /* Your event handling code goes here. */  }
 }
 ```
+17. if else for
+```html
+<h1>User profile</h1>
+@if (isAdmin()) {
+  <h2>Admin settings</h2>
+  <!-- ... -->
+} @else {
+  <h2>User settings</h2>
+  <!-- ... -->  
+}
+<ul class="user-badge-list">
+  @for (badge of badges(); track badge.id) {
+    <li class="user-badge">{{badge.name}}</li>
+  }
+</ul>
+```
+18. Why is track in @for blocks important? `https://angular.dev/guide/templates/control-flow#why-is-track-in-for-blocks-important`
+```text
+为什么track区块@for很重要？
+表达式track允许 Angular 维护数据与页面上的 DOM 节点之间的关系。这样，Angular 就可以在数据发生变化时执行最少的必要 DOM 操作来优化性能。
+
+有效使用轨道可以显著提高应用程序在循环数据集合时的渲染性能。
+
+选择唯一标识表达式中每个项目的属性track。如果您的数据模型包含唯一标识属性（通常为id或uuid），请使用此值。如果您的数据不包含这样的字段，强烈建议您添加一个。
+
+对于永远不会改变的静态集合，您可以用它$index来告诉 Angular 通过集合中的索引来跟踪每个项目。
+
+如果没有其他可用选项，您可以指定identity。这会告诉 Angular 使用三等号运算符 ( ===) 通过其引用标识跟踪项目。尽可能避免使用此选项，因为它可能会导致渲染更新速度明显变慢，因为 Angular 无法映射哪个数据项对应于哪些 DOM 节点。
+```
+19. Service 是可注入的可重用代码片段。当您需要在组件之间共享逻辑时，Angular 会利用依赖注入的设计模式，允许您创建一个“Service”，该Service允许您将代码注入组件，同时从单一真实来源进行管理。@Injectable 可被注入的
+```typescript
+import {Injectable} from '@angular/core';
+@Injectable({providedIn: 'root'})
+export class Calculator {
+  add(x: number, y: number) {
+    return x + y;
+  }
+}
+```
+```typescript
+import { Component, inject } from '@angular/core';
+import { Calculator } from './calculator';
+@Component({
+  selector: 'app-receipt',
+  template: `<h1>The total is {{ totalCost }}</h1>`,
+})
+export class Receipt {
+  private calculator = inject(Calculator);
+  totalCost = this.calculator.add(50, 25);
+}
+```
+20. RxJS 是一个库。它是基于观察者模式和流的响应式编程库，可以简化异步或回调的代码。
+21. 

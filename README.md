@@ -5,9 +5,12 @@ https://github.com/angular/angular
 
 组件、表单、路由、依赖注入、信号、延迟加载、Angular CLI、Angular DevTools、内置变量
 
-双花括号`{{}}`——元素内容、方括号`[]`——元素属性、圆括号`()`——元素事件
+双花括号`{{}}`——元素内容、方括号`[]`——元素属性、圆括号`()`——元素事件、"banana-in-a-box"`[()]`——双向绑定 Two-way binding
 
 `@if`、`@else`、`@for`
+
+https://angularjs.org/ 这个网站不再维护，AngularJS 项目已被 Google 关闭，不再维护，老项目 AngularJS 已被 Google 新项目 Angular 替代   
+https://angular.io/ 这个网站不再更新，大部分页面会自动跳转到 https://angular.dev/
 
 1. Angular 应用是围绕组件构建的，组件是 Angular 的构建块。组件包含代码、HTML 布局和 CSS 样式信息，这些信息提供应用中元素的功能和外观。在 Angular 中，组件可以包含其他组件。应用的功能和外观可以划分并划分为组件。Angular apps are built around components, which are Angular's building blocks. `https://angular.dev/tutorials/first-app/02-HomeComponent`
 2. Angular 使用 TypeScript 来充分利用强类型编程环境。强类型检查可降低应用中的一个元素向另一个元素发送格式错误的数据的可能性。此类类型不匹配错误会被 TypeScript 编译器捕获，许多此类错误也可以在您的 IDE 中捕获。`https://angular.dev/tutorials/first-app/04-interfaces`
@@ -162,4 +165,48 @@ export class Receipt {
 }
 ```
 20. RxJS 是一个库。它是基于观察者模式和流的响应式编程库，可以简化异步或回调的代码。
-21. 
+21. ng 命令 帮助文档
+``
+> ng --help
+ng
+
+Commands:
+  ng add <collection>            Adds support for an external library to your project.
+  ng analytics                   Configures the gathering of Angular CLI usage metrics.
+                                 配置 收集 Angular CLI 使用数据 
+  ng build [project]             Compiles an Angular application or library into an output directory named dist/ at
+                                 the given output path.                                                   [aliases: b]
+                                 编译一个angular应用或库到一个输出目录
+  ng cache                       Configure persistent disk cache and retrieve cache statistics.
+  ng completion                  Set up Angular CLI autocompletion for your terminal.
+  ng config [json-path] [value]  Retrieves or sets Angular configuration values in the angular.json file for the
+                                 workspace.
+  ng deploy [project]            Invokes the deploy builder for a specified project or for the default project in the
+                                 workspace.
+  ng e2e [project]               Builds and serves an Angular application, then runs end-to-end tests.    [aliases: e]
+                                 构建项目，启动服务器，然后运行端对端测试
+  ng extract-i18n [project]      Extracts i18n messages from source code.
+  ng generate                    Generates and/or modifies files based on a schematic.                    [aliases: g]
+                                 生成或修改文件 [别名；g]
+  ng lint [project]              Runs linting tools on Angular application code in a given project folder.
+  ng new [name]                  Creates a new Angular workspace.                                         [aliases: n]
+                                 创建一个新的 Angular 工作区 [别名：n]
+  ng run <target>                Runs an Architect target with an optional custom builder configuration defined in
+                                 your project.
+  ng serve [project]             Builds and serves your application, rebuilding on file changes.     [aliases: dev, s]
+                                 构建应用，并启动开发服务器，当文件修改，重新构建 [别名：dev, s]
+  ng test [project]              Runs unit tests in a project.                                            [aliases: t]
+                                 运行项目中的单元测试 [别名：t]
+  ng update [packages..]         Updates your workspace and its dependencies. See https://update.angular.dev/.        
+                                 更新你的工作区和它的依赖
+  ng version                     Outputs Angular CLI version.                                             [aliases: v]
+                                 输出 Angular 命令行工具 版本 [别名：v]
+
+Options:
+  --help     Shows a help message for this command in the console.                                           [boolean]
+             在控制台显示这个命令的帮助信息
+  --version  Show Angular CLI version.                                                                       [boolean]
+             看 Angular 命令行工具 版本
+
+For more information, see https://angular.dev/cli/.
+```

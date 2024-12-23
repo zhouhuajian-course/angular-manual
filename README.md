@@ -5,9 +5,9 @@ https://github.com/angular/angular
 
 组件、表单、路由、依赖注入、信号、延迟加载、Angular CLI、Angular DevTools、内置变量
 
-双花括号`{{}}`——元素内容、方括号`[]`——元素属性、圆括号`()`——元素事件、"banana-in-a-box"`[()]`——双向绑定 Two-way binding
+双花括号`{{}}`——元素内容、方括号`[]`——元素属性、圆括号`()`——元素事件、"banana-in-a-box"`[()]`——双向绑定 Two-way binding、指令`*`directive
 
-`@if`、`@else`、`@for`
+三个 Structural directives，v17之前`*ngFf`、`*ngFor`、`*ngSwitch`，v17之后可以使用`@if`、`@else`、`@for`、`@switch`进行替代，更直观，代码可读性更好
 
 https://angularjs.org/ 这个网站不再维护，AngularJS 项目已被 Google 关闭，不再维护，老项目 AngularJS 已被 Google 新项目 Angular 替代   
 https://angular.io/ 这个网站不再更新，大部分页面会自动跳转到 https://angular.dev/
@@ -270,3 +270,5 @@ Options:
       --force        Force overwriting of existing files.                                   [boolean] [default: false]
 ```
 23. ng new augular-app 一直回车，就是默认选项，Yes/No 回车，是 No
+24. @Component 表明下面声明的类是一个组件
+25. ng-template https://angular.dev/api/core/ng-template 

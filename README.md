@@ -272,3 +272,5 @@ Options:
 23. ng new augular-app 一直回车，就是默认选项，Yes/No 回车，是 No
 24. @Component 表明下面声明的类是一个组件
 25. ng-template https://angular.dev/api/core/ng-template 
+26. 组件包含代码、HTML布局、CSS样式信息，提供一个元素的功能和外观。在Angular 组件可以包含其他组件。一个应用程序的功能和外观能够被分离到不同的组件中。Components contain the code, HTML layout, and CSS style information that provide the function and appearance of an element in the app. In Angular, components can contain other components. An app's functions and appearance can be divided and partitioned into components.
+27. In Angular, components have metadata that define its properties.

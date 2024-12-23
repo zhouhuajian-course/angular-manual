@@ -12,6 +12,8 @@ https://github.com/angular/angular
 https://angularjs.org/ 这个网站不再维护，AngularJS 项目已被 Google 关闭，不再维护，老项目 AngularJS 已被 Google 新项目 Angular 替代   
 https://angular.io/ 这个网站不再更新，大部分页面会自动跳转到 https://angular.dev/
 
+In Angular, the `ng` stands for `Angular`. 
+
 1. Angular 应用是围绕组件构建的，组件是 Angular 的构建块。组件包含代码、HTML 布局和 CSS 样式信息，这些信息提供应用中元素的功能和外观。在 Angular 中，组件可以包含其他组件。应用的功能和外观可以划分并划分为组件。Angular apps are built around components, which are Angular's building blocks. `https://angular.dev/tutorials/first-app/02-HomeComponent`
 2. Angular 使用 TypeScript 来充分利用强类型编程环境。强类型检查可降低应用中的一个元素向另一个元素发送格式错误的数据的可能性。此类类型不匹配错误会被 TypeScript 编译器捕获，许多此类错误也可以在您的 IDE 中捕获。`https://angular.dev/tutorials/first-app/04-interfaces`
 3. `constructor` 是创建此组件时运行的第一个函数。The constructor is the first function that runs when this component is created. `https://angular.dev/tutorials/first-app/09-services`
@@ -166,7 +168,7 @@ export class Receipt {
 ```
 20. RxJS 是一个库。它是基于观察者模式和流的响应式编程库，可以简化异步或回调的代码。
 21. ng 命令 帮助文档
-``
+```
 > ng --help
 ng
 
@@ -210,3 +212,61 @@ Options:
 
 For more information, see https://angular.dev/cli/.
 ```
+22. ng generate --help
+```
+> ng generate --help
+ng generate
+
+Generates and/or modifies files based on a schematic.
+生成或修改文件
+
+Commands:
+  ng generate <schematic>              Run the provided schematic.                                           [default]
+  ng generate app-shell                Generates an application shell for running a server-side version of an app.    
+  ng generate application [name]       Generates a new basic application definition in the "projects" subfolder of the
+                                       workspace.                                                       [aliases: app]
+                                       在工作区的projects子目录，生成一个新的基础的应用程序 [别名：app]
+  ng generate class [name]             Creates a new, generic class definition in the given project.     [aliases: cl]
+                                       在一个给定的项目里，创建一个新的通用的类 [别名：cl]
+  ng generate component [name]         Creates a new, generic component definition in the given project.  [aliases: c]
+                                       在一个给定的项目里，创建一个新的通用的组件 [别名：c]
+  ng generate config [type]            Generates a configuration file in the given project.
+                                       在一个给定的项目里，生成一个配置文件
+  ng generate directive [name]         Creates a new, generic directive definition in the given project.  [aliases: d]
+                                       在一个给定的项目里，创建一个新的通用的指令 [别名：d]
+  ng generate enum [name]              Generates a new, generic enum definition in the given project.     [aliases: e]
+                                       生成一个新的通用的枚举 [别名：e]
+  ng generate environments             Generates and configures environment files for a project.
+                                       生成并配置环境文件
+  ng generate guard [name]             Generates a new, generic route guard definition in the given project.
+                                                                                                          [aliases: g]
+                                       创建一个新的通用的路由守卫 [别名：g]
+  ng generate interceptor [name]       Creates a new, generic interceptor definition in the given project.
+                                       创建一个新的通用的拦截器
+  ng generate interface [name] [type]  Creates a new, generic interface definition in the given project.  [aliases: i]
+                                       创建一个新的通用的接口 [别名：i]
+                                       
+  ng generate library [name]           Creates a new, generic library project in the current workspace. [aliases: lib]
+                                       创建一个新的通用的库项目
+  ng generate module [name]            Creates a new, generic NgModule definition in the given project.   [aliases: m]
+                                       创建一个新的NgModule
+  ng generate pipe [name]              Creates a new, generic pipe definition in the given project.       [aliases: p]
+                                       创建一个新的管道
+  ng generate resolver [name]          Generates a new, generic resolver definition in the given project. [aliases: r]
+                                       创建一个新的
+  ng generate service [name]           Creates a new, generic service definition in the given project.    [aliases: s]
+                                       创建一个新的 service 服务
+  ng generate service-worker           Pass this schematic to the "run" command to create a service worker
+  ng generate web-worker [name]        Creates a new, generic web worker definition in the given project.
+
+Arguments:
+  schematic  The [collection:schematic] to run.                                                               [string]
+
+Options:
+      --help         Shows a help message for this command in the console.                                   [boolean]
+      --interactive  Enable interactive input prompts.                                       [boolean] [default: true]
+  -d, --dry-run      Run through and reports activity without writing out results.          [boolean] [default: false]
+      --defaults     Disable interactive input prompts for options with a default.          [boolean] [default: false]
+      --force        Force overwriting of existing files.                                   [boolean] [default: false]
+```
+23. ng new augular-app 一直回车，就是默认选项，Yes/No 回车，是 No

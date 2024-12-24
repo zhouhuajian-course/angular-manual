@@ -274,3 +274,102 @@ Options:
 25. ng-template https://angular.dev/api/core/ng-template 
 26. 组件包含代码、HTML布局、CSS样式信息，提供一个元素的功能和外观。在Angular 组件可以包含其他组件。一个应用程序的功能和外观能够被分离到不同的组件中。Components contain the code, HTML layout, and CSS style information that provide the function and appearance of an element in the app. In Angular, components can contain other components. An app's functions and appearance can be divided and partitioned into components.
 27. In Angular, components have metadata that define its properties.
+28. 组件可以使用 使用 input 属性 来接收数据 https://angular.dev/guide/components/inputs `Accepting data with input properties`
+29. When you use a component, you commonly want to pass some data to it. A component specifies the data that it accepts by declaring inputs:
+```typescript
+import {Component, input} from '@angular/core';
+@Component({/*...*/})
+export class CustomSlider {
+  // Declare an input named 'value' with a default value of zero.
+  // 0是默认值
+  value = input(0);
+}
+```
+This lets you bind to the property in a template:  
+和模板中的元素属性进行绑定
+```html
+<custom-slider [value]="50" />
+```
+If an input has a default value, TypeScript infers the type from the default value:  
+如果一个input有默认值，TS会根据默认值推断数据类型
+```typescript
+@Component({/*...*/})
+export class CustomSlider {
+  // TypeScript infers that this input is a number, returning InputSignal<number>.
+  value = input(0);
+}
+```
+You can explicitly declare a type for the input by specifying a generic parameter to the function.  
+你可以显式给input声明给类型，通过给函数指定一个泛型参数  
+If an input without a default value is not set, its value is undefined:  
+如果一个input没有设置默认值，它的值是undefined  
+```typescript
+@Component({/*...*/})
+export class CustomSlider {
+  // Produces an InputSignal<number | undefined> because `value` may not be set.
+  value = input<number>();
+}
+```
+Angular records inputs statically at compile-time. Inputs cannot be added or removed at run-time.  
+Angular 在编译期，静态地记录 inputs。Inputs 不能在运行期被添加或移除。  
+The input function has special meaning to the Angular compiler. You can exclusively call input in component and directive property initializers.  
+When extending a component class, inputs are inherited by the child class.  
+当继承一个组件类，inputs会被子类继承  
+Input names are case-sensitive.  
+input名是区分大小写的。
+30. 组件的input可以使用 input() 或 @Input，使用方式会有些不同，但都可以实现功能。
+31. 两种input，基于信号的input和基于装饰器的input。数据绑定方式。Binding to an input is the same in both signal-based and decorator-based inputs:
+```html
+<custom-slider [value]="50" />
+```
+32. an input是单向数据绑定，a model input是双向数据绑定？
+33. 双向数据绑定例子
+```text
+App 500
+Home Joe 50 有多少钱 500
+```
+```typescript
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { HomeComponent } from "./home/home.component";
+
+@Component({
+  selector: 'app-root',
+  imports: [HomeComponent],
+  // templateUrl: './app.component.html',
+  template: `App {{stuMoney}} <br/>
+  <app-home [age]="50" [name]="stuName" [(money)]="stuMoney"></app-home>`,
+  // styleUrl: './app.component.css'
+})
+export class AppComponent {
+  title = 'angular-app';
+  stuName = 'Joe';
+  stuMoney = 800
+}
+```
+```typescript
+import { Component, Input, input, model } from '@angular/core';
+
+@Component({
+  selector: 'app-home',
+  imports: [],
+  template: "Home {{ name }} {{ age() }} 有多少钱 {{ money() }}",
+  styleUrl: './home.component.css'
+})
+export class HomeComponent {
+  @Input()
+  name = "Trump"
+  age = input(18)
+  money = model(0)
+  constructor() {
+    setTimeout(() => {
+      this.money.set(500)
+    }, 3000);
+  }
+}
+```
+
+
+
+
+

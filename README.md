@@ -365,6 +365,9 @@ export class HomeComponent {
     setTimeout(() => {
       this.money.set(500)
     }, 3000);
+    // setTimeout(() => {
+    //   this.age.xxx(18) 不能改 age，没有set方法可以调用
+    // }, 3000);
   }
 }
 ```

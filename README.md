@@ -14,6 +14,8 @@ https://angular.io/ 这个网站不再更新，大部分页面会自动跳转到
 
 In Angular, the `ng` stands for `Angular`. 
 
+`<app-root></app-root>` 这种元素，就是一个Angular组件。`When an element is an Angular component, ...`
+
 1. Angular 应用是围绕组件构建的，组件是 Angular 的构建块。组件包含代码、HTML 布局和 CSS 样式信息，这些信息提供应用中元素的功能和外观。在 Angular 中，组件可以包含其他组件。应用的功能和外观可以划分并划分为组件。Angular apps are built around components, which are Angular's building blocks. `https://angular.dev/tutorials/first-app/02-HomeComponent`
 2. Angular 使用 TypeScript 来充分利用强类型编程环境。强类型检查可降低应用中的一个元素向另一个元素发送格式错误的数据的可能性。此类类型不匹配错误会被 TypeScript 编译器捕获，许多此类错误也可以在您的 IDE 中捕获。`https://angular.dev/tutorials/first-app/04-interfaces`
 3. `constructor` 是创建此组件时运行的第一个函数。The constructor is the first function that runs when this component is created. `https://angular.dev/tutorials/first-app/09-services`
@@ -371,6 +373,42 @@ export class HomeComponent {
   }
 }
 ```
+34. `Binding dynamic text, properties and attributes` 绑定动态的文本、组件属性和元素属性
+In Angular, a binding creates a dynamic connection between a component's template and its data. This connection ensures that changes to the component's data automatically update the rendered template.
+在Angular，一个绑定 创建了 在一个组件模板和它的数据间的 一个动态连接。这个连接，确保组件数据的修改会自动更新到已渲染的模板中。  
+① Render dynamic text with text interpolation 使用文本插值，渲染动态的文本
+```typescript
+@Component({
+  template: `
+    <p>Your color preference is {{ theme }}.</p>
+  `,
+  ...
+})
+export class AppComponent {
+  theme = 'dark';
+}
+```
+You can bind dynamic text in templates with double curly braces 你可以在模板使用双花括号绑定动态文本  
+双花括号里面的是 表达式 expression  
+In addition to evaluating the expression at first render, Angular also updates the rendered content when the expression's value changes.  除了第一次渲染计算表达式，当表达式的值修改了，Angular 也会更新已经渲染的内容  
+All expression values are converted to a string. Objects and arrays are converted using the value’s toString method. 所有表达式值都被转换为一个字符串。对象和数组会使用 toString 方法。  
+② Binding dynamic properties and attributes 把动态的组件属性和元素属性绑定起来  
+Angular supports binding dynamic values into object properties and HTML attributes with square brackets. Angular 支持绑定动态值到对象属性和HTML属性，使用方括号。  
+*Native element properties 原生元素属性*  
+HTML中一个元素，会被创建要给实例，例如`<button>`会被创建一个`HTMLButtonElement`实例 `an instance of HTMLButtonElement `  
+```html
+<!-- Bind the `disabled` property on the button element's DOM object -->
+<button [disabled]="isFormValid">Save</button>
+```
+*Component and directive properties 组件和指令属性*  
+When an element is an Angular component, you can use property bindings to set component input properties using the same square bracket syntax.  
+当一个元素是一个Angular组件，你可以使用属性绑定设置组件input属性，使用相同的方括号语法
+```html
+<!-- Bind the `value` property on the `MyListbox` component instance. -->
+<my-listbox [value]="mySelection" />
+```
+
+
 
 
 

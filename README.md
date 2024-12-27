@@ -5,7 +5,7 @@ https://github.com/angular/angular
 
 组件、表单、路由、依赖注入、信号、延迟加载、Angular CLI、Angular DevTools、内置变量
 
-双花括号`{{}}`——元素内容、方括号`[]`——元素属性、圆括号`()`——元素事件、"banana-in-a-box"`[()]`——双向绑定 Two-way binding、指令`*`directive
+双花括号`{{}}`——元素内容、元素属性值 文本插值（语法）、方括号`[]`——元素属性、圆括号`()`——元素事件、"banana-in-a-box"`[()]`——双向绑定 Two-way binding、指令`*`directive
 
 三个 Structural directives，v17之前`*ngFf`、`*ngFor`、`*ngSwitch`，v17之后可以使用`@if`、`@else`、`@for`、`@switch`进行替代，更直观，代码可读性更好
 
@@ -14,7 +14,7 @@ https://angular.io/ 这个网站不再更新，大部分页面会自动跳转到
 
 In Angular, the `ng` stands for `Angular`. 
 
-`<app-root></app-root>` 这种元素，就是一个Angular组件。`When an element is an Angular component, ...`
+`<app-root></app-root>` 这种元素，就是一个Angular组件（实例）。`When an element is an Angular component, ...`
 
 1. Angular 应用是围绕组件构建的，组件是 Angular 的构建块。组件包含代码、HTML 布局和 CSS 样式信息，这些信息提供应用中元素的功能和外观。在 Angular 中，组件可以包含其他组件。应用的功能和外观可以划分并划分为组件。Angular apps are built around components, which are Angular's building blocks. `https://angular.dev/tutorials/first-app/02-HomeComponent`
 2. Angular 使用 TypeScript 来充分利用强类型编程环境。强类型检查可降低应用中的一个元素向另一个元素发送格式错误的数据的可能性。此类类型不匹配错误会被 TypeScript 编译器捕获，许多此类错误也可以在您的 IDE 中捕获。`https://angular.dev/tutorials/first-app/04-interfaces`
@@ -407,10 +407,111 @@ When an element is an Angular component, you can use property bindings to set co
 <!-- Bind the `value` property on the `MyListbox` component instance. -->
 <my-listbox [value]="mySelection" />
 ```
-
-
-
-
-
-
-
+In this example, every time mySelection changes, Angular automatically sets the value property of the MyListbox instance.  
+在这个例子中，每一次 mySelection修改，Angular会自动地设置 MyListbox 实例 的 value 属性  
+You can bind to directive properties as well.  
+你也可以绑定指令属性  
+```html
+<!-- Bind to the `ngSrc` property of the `NgOptimizedImage` directive  -->
+<img [ngSrc]="profilePhotoUrl" alt="The current user's profile photo">
+```
+更通用的方式 
+```html
+<!-- Bind the `role` attribute on the `<ul>` element to the component's `listRole` property. -->
+<ul [attr.role]="listRole">
+```
+In this example, every time listRole changes, Angular automatically sets the role attribute of the <ul> element by calling setAttribute.  
+在这个例子，每次 listRole 修改，Angular 自动设置role 属性，通过调用 setAttribute  
+If the value of an attribute binding is null, Angular removes the attribute by calling removeAttribute.  
+如果一个数下绑定是 null，angular 调用 removeAttribute 来移除属性  
+*Text interpolation in properties and attributes 在属性里面进行文本插值*  
+```html
+<!-- Binds a value to the `alt` property of the image element's DOM object. -->
+<img src="profile-photo.jpg" alt="Profile photo of {{ firstName }}" >
+```
+To bind to an attribute with the text interpolation syntax, prefix the attribute name with attr.
+```html
+<button attr.aria-label="Save changes to {{ objectType }}">
+```
+*CSS class and style property bindings CSS 类和样式属性绑定*  
+```html
+<!-- When `isExpanded` is truthy, add the `expanded` CSS class. -->
+<ul [class.expanded]="isExpanded">
+```
+```typescript
+@Component({
+  template: `
+    <ul [class]="listClasses"> ... </ul>
+    <section [class]="sectionClasses"> ... </section>
+    <button [class]="buttonClasses"> ... </button>
+  `,
+  ...
+})
+export class UserProfile {
+  listClasses = 'full-width outlined';
+  sectionClasses = ['expandable', 'elevated'];
+  buttonClasses = {
+    highlighted: true,
+    embiggened: false,
+  };
+}
+```
+```html
+<ul class="full-width outlined"> ... </ul>
+<section class="expandable elevated"> ... </section>
+<button class="highlighted"> ... </button>
+```
+When using static CSS classes, directly binding class, and binding specific classes, Angular intelligently combines all of the classes in the rendered result.  
+当使用静态地CSS类，直接地绑定类和绑定特定的类，Angular 会智能地把所有类整合在一起
+```typescript
+@Component({
+  template: `<ul class="list" [class]="listType" [class.expanded]="isExpanded"> ...`,
+  ...
+})
+export class Listbox {
+  listType = 'box';
+  isExpanded = true;
+}
+```
+```html
+<ul class="list box expanded">
+```
+Angular does not guarantee any specific order of CSS classes on rendered elements.  
+不确保class的顺序  
+If an element has multiple bindings for the same CSS class, Angular resolves collisions by following its style precedence order.  
+有冲突时的处理逻辑  
+*CSS style properties CSS样式属性*  
+```html
+<!-- Set the CSS `display` property based on the `isExpanded` property. -->
+<section [style.display]="isExpanded ? 'block' : 'none'">
+```
+You can further specify units for CSS properties that accept units.  
+还可设置单位
+```html
+<!-- Set the CSS `height` property to a pixel value based on the `sectionHeightInPixels` property. -->
+<section [style.height.px]="sectionHeightInPixels">
+```
+```typescirpt
+@Component({
+  template: `
+    <ul [style]="listStyles"> ... </ul>
+    <section [style]="sectionStyles"> ... </section>
+  `,
+  ...
+})
+export class UserProfile {
+  listStyles = 'display: flex; padding: 8px';
+  sectionStyles = {
+    border: '1px solid black',
+    'font-weight': 'bold',
+  };
+}
+```
+```html
+<ul style="display: flex; padding: 8px"> ... </ul>
+<section style="border: 1px solid black; font-weight: bold"> ... </section>
+```
+When binding style to an object, Angular compares the previous value to the current value with the triple-equals operator (===). You must create a new object instance when you modify these values in order to Angular to apply any updates.  
+修改样式，要创建新的对象实例才能生效？
+If an element has multiple bindings for the same style property, Angular resolves collisions by following its style precedence order.  
+冲突的处理逻辑

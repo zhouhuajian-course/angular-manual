@@ -373,7 +373,7 @@ export class HomeComponent {
   }
 }
 ```
-34. `Binding dynamic text, properties and attributes` 绑定动态的文本、组件属性和元素属性
+34. `Binding dynamic text, properties and attributes` 绑定动态的文本、组件属性和元素属性 `https://angular.dev/guide/templates/binding#binding-dynamic-properties-and-attributes`  
 In Angular, a binding creates a dynamic connection between a component's template and its data. This connection ensures that changes to the component's data automatically update the rendered template.
 在Angular，一个绑定 创建了 在一个组件模板和它的数据间的 一个动态连接。这个连接，确保组件数据的修改会自动更新到已渲染的模板中。  
 ① Render dynamic text with text interpolation 使用文本插值，渲染动态的文本

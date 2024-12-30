@@ -3,6 +3,14 @@
 https://angular.dev/  
 https://github.com/angular/angular
 
+HTML标签尖括号 `<>` 叫做 `Angular Brackets` 或者 `Angle Brackets`，这是 `Angular` 名字的由来，为了扩展 HTML。
+
+指令 directives 可以扩展 HTML 标签和 HTML 属性。
+
+CSS 扩展语言
+
+`GetAngular` -> `AngularJS` -> `Angular`
+
 组件、表单、路由、依赖注入、信号、延迟加载、Angular CLI、Angular DevTools、内置变量
 
 双花括号`{{}}`——元素内容、元素属性值 文本插值（语法）、方括号`[]`——元素属性、圆括号`()`——元素事件、"banana-in-a-box"`[()]`——双向绑定 Two-way binding、指令`*`directive

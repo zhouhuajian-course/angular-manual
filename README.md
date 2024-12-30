@@ -7,11 +7,19 @@ HTML标签尖括号 `<>` 叫做 `Angular Brackets` 或者 `Angle Brackets`，这
 
 指令 directives 可以扩展 HTML 标签和 HTML 属性。
 
+Directives are classes that add additional behavior to elements in your Angular applications. 
+
+指令是一些类，这些类在你的应用程序中 给 元素 添加额外的行为。
+
+`@angular/core` `@angular/common` ... 这些都是一些 `Angular` npm 包，不同的包里面，会把不同的功能聚在一起。
+
 模块 Module 把 一些组件、指令、管道 整合在一起。可以把庞大的功能分成一个一个划分清晰的模块，例如按业务不同，划分模块。
 
 CSS 扩展语言
 
 `GetAngular` -> `AngularJS` -> `Angular`
+
+`filter` -> `pipe` 
 
 组件、表单、路由、依赖注入、信号、延迟加载、Angular CLI、Angular DevTools、内置变量
 
@@ -525,3 +533,5 @@ When binding style to an object, Angular compares the previous value to the curr
 修改样式，要创建新的对象实例才能生效？
 If an element has multiple bindings for the same style property, Angular resolves collisions by following its style precedence order.  
 冲突的处理逻辑
+35. `CommonModule` 通用模块，Exports all the basic Angular directives and pipes, such as NgIf, NgForOf, DecimalPipe, and so on. 导出所有基础的Angular指令和管道，例如 NgIf NgForOf DecimalPipe 
+36. 

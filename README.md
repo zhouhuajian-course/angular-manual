@@ -15,6 +15,8 @@ Directives are classes that add additional behavior to elements in your Angular 
 
 模块 Module 把 一些组件、指令、管道 整合在一起。可以把庞大的功能分成一个一个划分清晰的模块，例如按业务不同，划分模块。
 
+Angular DevTools https://angular.dev/tools/devtools#
+
 CSS 扩展语言
 
 `GetAngular` -> `AngularJS` -> `Angular`

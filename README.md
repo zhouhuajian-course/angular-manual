@@ -534,4 +534,17 @@ When binding style to an object, Angular compares the previous value to the curr
 If an element has multiple bindings for the same style property, Angular resolves collisions by following its style precedence order.  
 冲突的处理逻辑
 35. `CommonModule` 通用模块，Exports all the basic Angular directives and pipes, such as NgIf, NgForOf, DecimalPipe, and so on. 导出所有基础的Angular指令和管道，例如 NgIf NgForOf DecimalPipe 
-36. 
+36. `*ngFor` `*ngIf` ... 是语法糖，是简写形式，推荐使用简写形式，`https://angular.dev/guide/directives/structural-directives#shorthand-examples`  
+`*ngFor="let item of [1,2,3]"	` 会被解释(interpret)成 `<ng-template ngFor let-item [ngForOf]="[1, 2, 3]">`  
+`*ngIf="exp"` 会被解释(interpret)成 `<ng-template [ngIf]="exp">`  
+例如
+```html
+    <ul>
+      <li *ngFor="let name of names">{{name}}</li>
+    </ul>
+    <ul>
+      <ng-template ngFor let-name [ngForOf]="names">
+        <li>{{name}}</li>
+      </ng-template>
+    </ul>
+```

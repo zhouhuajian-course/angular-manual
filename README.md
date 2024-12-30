@@ -7,7 +7,7 @@ HTML标签尖括号 `<>` 叫做 `Angular Brackets` 或者 `Angle Brackets`，这
 
 指令 directives 可以扩展 HTML 标签和 HTML 属性。
 
-模块 Module 把 一些组件、指令、管道 整合在一起。
+模块 Module 把 一些组件、指令、管道 整合在一起。可以把庞大的功能分成一个一个划分清晰的模块，例如按业务不同，划分模块。
 
 CSS 扩展语言
 

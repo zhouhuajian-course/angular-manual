@@ -19,7 +19,7 @@ Angular DevTools https://angular.dev/tools/devtools#
 
 CSS 扩展语言
 
-`GetAngular` -> `AngularJS` -> `Angular`
+`GetAngular` -> `AngularJS` (script 标签 src ../angular.js) -> `Angular`
 
 `filter` -> `pipe` 
 
@@ -538,7 +538,8 @@ If an element has multiple bindings for the same style property, Angular resolve
 35. `CommonModule` 通用模块，Exports all the basic Angular directives and pipes, such as NgIf, NgForOf, DecimalPipe, and so on. 导出所有基础的Angular指令和管道，例如 NgIf NgForOf DecimalPipe 
 36. `*ngFor` `*ngIf` ... 是语法糖，是简写形式，推荐使用简写形式，`https://angular.dev/guide/directives/structural-directives#shorthand-examples`  
 `*ngFor="let item of [1,2,3]"	` 会被解释(interpret)成 `<ng-template ngFor let-item [ngForOf]="[1, 2, 3]">`  
-`*ngIf="exp"` 会被解释(interpret)成 `<ng-template [ngIf]="exp">`  
+`*ngIf="exp"` 会被解释(interpret)成
+`<ng-template [ngIf]="exp">`  
 例如
 ```html
     <ul>
@@ -549,4 +550,53 @@ If an element has multiple bindings for the same style property, Angular resolve
         <li>{{name}}</li>
       </ng-template>
     </ul>
+```
+37. The constructor is the first function that runs when this component is created. 构造器 是 当 这个组件被创建时 运行的第一个函数。
+38. 依赖注入方式  
+ng generate service log
+```typescript
+import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class LogService {
+  constructor() { }
+  info(msg: string) {
+    console.log(msg);
+  }  
+  warn(msg: string) {
+    console.warn(msg);
+  }
+}
+```
+```typescript
+@Component({ /* ... */ })
+export class HomeComponent {
+  logService: LogService = inject(LogService)
+  constructor() {
+    this.logService.info("哈哈")
+    this.logService.warn("嘻嘻")
+  }
+}
+```
+```typescript
+@Component({ /* ... */ })
+export class HomeComponent {
+  logService: LogService
+  constructor() {
+    this.logService = inject(LogService)
+    this.logService.info("哈哈2")
+    this.logService.warn("嘻嘻2")
+  }
+}
+```
+```typescript
+@Component({ /* ... */ })
+export class HomeComponent {
+  constructor(logService: LogService) {
+    logService.info("哈哈3")
+    logService.warn("嘻嘻3")
+  }
+}
 ```

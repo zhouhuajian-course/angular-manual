@@ -600,3 +600,55 @@ export class HomeComponent {
   }
 }
 ```
+39. Routing helps you change what the user sees in a single-page app. 路由可帮助您改变用户在单页应用程序中看到的内容。
+40. `ng generate component first` CLI 会自动追加Component，因此，如果您要写入first-component，则您的组件将是FirstComponentComponent。
+41. 默认路由匹配的空路径路由。路线顺序，路由的顺序很重要，因为Router在匹配路由时使用先匹配获胜策略，因此更具体的路由应置于不太具体的路由之上。首先列出具有静态路径的路由，然后列出与默认路由匹配的空路径路由。通配符路由排在最后，因为它与每个 URL 匹配，并且Router只有在没有其他路由首先匹配时才会选择它。
+42. `{ path: '**', component: <component-name> }` 两个星号`**`向 Angular 表明此routes定义是通配符路由。对于 component 属性，您可以定义应用程序中的任何组件。常见的选择包括特定于应用程序的PageNotFoundComponent，您可以将其定义为向用户显示 404 页面；或重定向到应用程序的主要组件。通配符路由是最后一条路由，因为它匹配任何 URL。
+```typescript
+const routes: Routes = [
+  { path: 'first-component', component: FirstComponent },
+  { path: 'second-component', component: SecondComponent },
+  { path: '**', component: PageNotFoundComponent },  // Wildcard route for a 404 page
+];
+```
+43. 路由重定向 redirectTo。页面标题，还可动态设置。
+44. 路由嵌套、子路由 `https://angular.dev/guide/routing/common-router-tasks#nesting-routes`
+```typescript
+const routes: Routes = [
+  {
+    path: 'first-component',
+    component: FirstComponent, // this is the component with the <router-outlet> in the template
+    children: [
+      {
+        path: 'child-a', // child route path
+        component: ChildAComponent, // child route component that the router renders
+      },
+      {
+        path: 'child-b',
+        component: ChildBComponent, // another child route component that the router renders
+      },
+    ],
+  },
+];
+```
+45. 相对路由。除 `../` 之外，使用 `./` 或不使用前导斜杠来指定当前级别。
+```typescript
+<h2>First Component</h2>
+<nav>
+  <ul>
+    <li><a routerLink="../second-component">Relative Route to second component</a></li>
+  </ul>
+</nav>
+<router-outlet></router-outlet>
+```
+46. 延迟加载。
+```typescript
+const routes: Routes = [
+  {
+    path: 'lazy',
+    loadComponent: () => import('./lazy.component').then(c => c.LazyComponent)
+  }
+];
+```
+47. 防止未经授权的访问。使用路由守卫来防止用户未经授权导航到应用程序的某些部分。要使用路由保护，请考虑使用无组件路由，因为这有助于保护子路由。
+48. `https://angular.dev/guide/routing/common-router-tasks#link-parameters-array`

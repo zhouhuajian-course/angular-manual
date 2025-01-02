@@ -696,3 +696,47 @@ PS C:\Users\zhouhuajian\Desktop\first-app> npx serve .\dist\first-app\browser\
  HTTP  02/01/2025 12:24:29 ::1 GET /favicon.ico
  HTTP  02/01/2025 12:24:29 ::1 Returned 304 in 2 ms
 ```
+50. Link parameters array （可以直接写href即可，但这种方式，可以更加灵活地生成 href，多少层的路由都可以支持，其实可以理解为是 href 的 builder）链接参数数组 `https://angular.dev/guide/routing/common-router-tasks#link-parameters-array`  
+链接参数数组包含路由器导航的以下要素：  
+到目标组件的路由路径  
+路由 URL 中的必需和可选路由参数
+In summary, you can write applications with one, two or more levels of routing. The link parameters array affords the flexibility to represent any routing depth and any legal sequence of route paths, (required) router parameters, and (optional) route parameter objects.  
+```html
+<a [routerLink]="['/heroes']">Heroes</a>
+<a [routerLink]="['/hero', hero.id]">
+  <span class="badge">{{ hero.id }}</span>{{ hero.name }}
+</a>
+<a [routerLink]="['/crisis-center', { foo: 'foo' }]">Crisis Center</a>
+<a [routerLink]="['/crisis-center']">Crisis Center</a>
+<a [routerLink]="['/crisis-center', 1]">Dragon Crisis</a>
+<a [routerLink]="['/crisis-center']">Crisis Center</a>
+<a [routerLink]="['/crisis-center/1', { foo: 'foo' }]">Dragon Crisis</a>
+<a [routerLink]="['/crisis-center/2']">Shark Crisis</a>
+```
+51.  (required) router parameters, and (optional) route parameter objects. `http://localhost:4200/post/1;op1=1;op2=2?rp=1&rp=2`
+```typescript
+@Component({
+ /* ... */
+})
+export class PostComponent {
+  postId = -1;
+  constructor(private route: ActivatedRoute, private router: Router) {
+    // 使用代码跳转页面
+    // this.router.navigate(['/'], { queryParams: { 'page': 1 } })
+
+    // 必填路由参数
+    this.postId = Number(this.route.snapshot.params['id']);
+    console.log(this.route.snapshot.params, this.postId);
+
+    // 可选路由参数 用 paramMap和params都能获得
+    const op1 = this.route.snapshot.paramMap.get('op1');
+    const op2 = this.route.snapshot.paramMap.get('op2');
+    console.log(this.route.snapshot.paramMap, op1, op2);
+
+    // 查询参数
+    const rp1 = this.route.snapshot.queryParams['rp1'];
+    const rp2 = this.route.snapshot.queryParams['rp2'];
+    console.log(this.route.snapshot.queryParams, rp1, rp2)
+  }
+}
+```

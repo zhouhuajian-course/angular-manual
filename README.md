@@ -744,4 +744,23 @@ export class PostComponent {
 53. `<base href>` `您必须向应用程序添加一个<base href>元素index.html才能使pushState路由正常工作。浏览器<base href>在引用 CSS 文件、脚本和图像时使用该值作为相对 URL 的前缀。`
 54. 组件模板里面的注释`<!-- -->`不会输出到页面。Comments in the template source code are not included in the rendered output `https://angular.dev/guide/templates#differences-from-standard-html`
 55. 单页应用，默认情况下，普通的web服务器，不能一开始就访问其他页面，例如不能一开始就访问 `http://localhost:3000/post/1;op1=1;op2=2?rp1=1&rp2=2`，会404，当然这个应该可以通过，web服务器的重定向来解决这个问题。
-56. 
+```text
+PS C:\Users\zhouhuajian\Desktop\first-app> npx serve .\dist\first-app\browser\
+ WARN  Checking for updates failed (use `--debug` to see full error)
+
+   ┌──────────────────────────────────────────┐
+   │                                          │
+   │   Serving!                               │
+   │                                          │
+   │   - Local:    http://localhost:3000      │
+   │   - Network:  http://192.168.30.1:3000   │
+   │                                          │
+   │   Copied local address to clipboard!     │
+   │                                          │
+   └──────────────────────────────────────────┘
+
+ HTTP  02/01/2025 18:23:43 ::1 GET /post/1;op1=1;op2=2?rp1=1&rp2=2
+ HTTP  02/01/2025 18:23:43 ::1 Returned 404 in 33 ms
+ HTTP  02/01/2025 18:23:44 ::1 GET /favicon.ico
+ HTTP  02/01/2025 18:23:44 ::1 Returned 304 in 8 ms
+```

@@ -396,163 +396,22 @@ export class HomeComponent {
 }
 ```
 34. `Binding dynamic text, properties and attributes` 绑定动态的文本、组件属性和元素属性 `https://angular.dev/guide/templates/binding#binding-dynamic-properties-and-attributes`  
-In Angular, a binding creates a dynamic connection between a component's template and its data. This connection ensures that changes to the component's data automatically update the rendered template.
-在Angular，一个绑定 创建了 在一个组件模板和它的数据间的 一个动态连接。这个连接，确保组件数据的修改会自动更新到已渲染的模板中。  
-① Render dynamic text with text interpolation 使用文本插值，渲染动态的文本
-```typescript
-@Component({
-  template: `
-    <p>Your color preference is {{ theme }}.</p>
-  `,
-  ...
-})
-export class AppComponent {
-  theme = 'dark';
-}
-```
-You can bind dynamic text in templates with double curly braces 你可以在模板使用双花括号绑定动态文本  
-双花括号里面的是 表达式 expression  
-In addition to evaluating the expression at first render, Angular also updates the rendered content when the expression's value changes.  除了第一次渲染计算表达式，当表达式的值修改了，Angular 也会更新已经渲染的内容  
-All expression values are converted to a string. Objects and arrays are converted using the value’s toString method. 所有表达式值都被转换为一个字符串。对象和数组会使用 toString 方法。  
-② Binding dynamic properties and attributes 把动态的组件属性和元素属性绑定起来  
-Angular supports binding dynamic values into object properties and HTML attributes with square brackets. Angular 支持绑定动态值到对象属性和HTML属性，使用方括号。  
-*Native element properties 原生元素属性*  
-HTML中一个元素，会被创建要给实例，例如`<button>`会被创建一个`HTMLButtonElement`实例 `an instance of HTMLButtonElement `  
-```html
-<!-- Bind the `disabled` property on the button element's DOM object -->
-<button [disabled]="isFormValid">Save</button>
-```
-*Component and directive properties 组件和指令属性*  
-When an element is an Angular component, you can use property bindings to set component input properties using the same square bracket syntax.  
-当一个元素是一个Angular组件，你可以使用属性绑定设置组件input属性，使用相同的方括号语法
-```html
-<!-- Bind the `value` property on the `MyListbox` component instance. -->
-<my-listbox [value]="mySelection" />
-```
-In this example, every time mySelection changes, Angular automatically sets the value property of the MyListbox instance.  
-在这个例子中，每一次 mySelection修改，Angular会自动地设置 MyListbox 实例 的 value 属性  
-You can bind to directive properties as well.  
-你也可以绑定指令属性  
-```html
-<!-- Bind to the `ngSrc` property of the `NgOptimizedImage` directive  -->
-<img [ngSrc]="profilePhotoUrl" alt="The current user's profile photo">
-```
-更通用的方式 
-```html
-<!-- Bind the `role` attribute on the `<ul>` element to the component's `listRole` property. -->
-<ul [attr.role]="listRole">
-```
-In this example, every time listRole changes, Angular automatically sets the role attribute of the <ul> element by calling setAttribute.  
-在这个例子，每次 listRole 修改，Angular 自动设置role 属性，通过调用 setAttribute  
-If the value of an attribute binding is null, Angular removes the attribute by calling removeAttribute.  
-如果一个数下绑定是 null，angular 调用 removeAttribute 来移除属性  
-*Text interpolation in properties and attributes 在属性里面进行文本插值*  
-```html
-<!-- Binds a value to the `alt` property of the image element's DOM object. -->
-<img src="profile-photo.jpg" alt="Profile photo of {{ firstName }}" >
-```
-To bind to an attribute with the text interpolation syntax, prefix the attribute name with attr.
-```html
-<button attr.aria-label="Save changes to {{ objectType }}">
-```
-*CSS class and style property bindings CSS 类和样式属性绑定*  
-```html
-<!-- When `isExpanded` is truthy, add the `expanded` CSS class. -->
-<ul [class.expanded]="isExpanded">
-```
-```typescript
-@Component({
-  template: `
-    <ul [class]="listClasses"> ... </ul>
-    <section [class]="sectionClasses"> ... </section>
-    <button [class]="buttonClasses"> ... </button>
-  `,
-  ...
-})
-export class UserProfile {
-  listClasses = 'full-width outlined';
-  sectionClasses = ['expandable', 'elevated'];
-  buttonClasses = {
-    highlighted: true,
-    embiggened: false,
-  };
-}
-```
-```html
-<ul class="full-width outlined"> ... </ul>
-<section class="expandable elevated"> ... </section>
-<button class="highlighted"> ... </button>
-```
-When using static CSS classes, directly binding class, and binding specific classes, Angular intelligently combines all of the classes in the rendered result.  
-当使用静态地CSS类，直接地绑定类和绑定特定的类，Angular 会智能地把所有类整合在一起
-```typescript
-@Component({
-  template: `<ul class="list" [class]="listType" [class.expanded]="isExpanded"> ...`,
-  ...
-})
-export class Listbox {
-  listType = 'box';
-  isExpanded = true;
-}
-```
-```html
-<ul class="list box expanded">
-```
-Angular does not guarantee any specific order of CSS classes on rendered elements.  
-不确保class的顺序  
-If an element has multiple bindings for the same CSS class, Angular resolves collisions by following its style precedence order.  
-有冲突时的处理逻辑  
-*CSS style properties CSS样式属性*  
-```html
-<!-- Set the CSS `display` property based on the `isExpanded` property. -->
-<section [style.display]="isExpanded ? 'block' : 'none'">
-```
-You can further specify units for CSS properties that accept units.  
-还可设置单位
-```html
-<!-- Set the CSS `height` property to a pixel value based on the `sectionHeightInPixels` property. -->
-<section [style.height.px]="sectionHeightInPixels">
-```
-```typescirpt
-@Component({
-  template: `
-    <ul [style]="listStyles"> ... </ul>
-    <section [style]="sectionStyles"> ... </section>
-  `,
-  ...
-})
-export class UserProfile {
-  listStyles = 'display: flex; padding: 8px';
-  sectionStyles = {
-    border: '1px solid black',
-    'font-weight': 'bold',
-  };
-}
-```
-```html
-<ul style="display: flex; padding: 8px"> ... </ul>
-<section style="border: 1px solid black; font-weight: bold"> ... </section>
-```
-When binding style to an object, Angular compares the previous value to the current value with the triple-equals operator (===). You must create a new object instance when you modify these values in order to Angular to apply any updates.  
-修改样式，要创建新的对象实例才能生效？
-If an element has multiple bindings for the same style property, Angular resolves collisions by following its style precedence order.  
-冲突的处理逻辑
 35. `CommonModule` 通用模块，Exports all the basic Angular directives and pipes, such as NgIf, NgForOf, DecimalPipe, and so on. 导出所有基础的Angular指令和管道，例如 NgIf NgForOf DecimalPipe 
 36. `*ngFor` `*ngIf` ... 是语法糖，是简写形式，推荐使用简写形式，`https://angular.dev/guide/directives/structural-directives#shorthand-examples`  
-`*ngFor="let item of [1,2,3]"	` 会被解释(interpret)成 `<ng-template ngFor let-item [ngForOf]="[1, 2, 3]">`  
-`*ngIf="exp"` 会被解释(interpret)成
-`<ng-template [ngIf]="exp">`  
-例如
-```html
-    <ul>
-      <li *ngFor="let name of names">{{name}}</li>
-    </ul>
-    <ul>
-      <ng-template ngFor let-name [ngForOf]="names">
-        <li>{{name}}</li>
-      </ng-template>
-    </ul>
-```
+    `*ngFor="let item of [1,2,3]"	` 会被解释(interpret)成 `<ng-template ngFor let-item [ngForOf]="[1, 2, 3]">`  
+    `*ngIf="exp"` 会被解释(interpret)成
+    `<ng-template [ngIf]="exp">`  
+    例如
+    ```html
+        <ul>
+          <li *ngFor="let name of names">{{name}}</li>
+        </ul>
+        <ul>
+          <ng-template ngFor let-name [ngForOf]="names">
+            <li>{{name}}</li>
+          </ng-template>
+        </ul>
+    ```
 37. The constructor is the first function that runs when this component is created. 构造器 是 当 这个组件被创建时 运行的第一个函数。
 38. 依赖注入方式  
 ng generate service log

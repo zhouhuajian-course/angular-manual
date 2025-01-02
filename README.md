@@ -740,3 +740,8 @@ export class PostComponent {
   }
 }
 ```
+52. LocationStrategy和浏览器 URL 样式。现代 HTML5 浏览器支持history.pushState，这是一种无需触发服务器页面请求即可更改浏览器位置和历史记录的技术。路由器可以编写一个“自然”的 URL，该 URL 与原本需要页面加载的 URL 难以区分。可以改成 `#` 风格的 URL。该RouterModule.forRoot()函数将 设置LocationStrategy为PathLocationStrategy，使其成为默认策略。您还可以选择HashLocationStrategy在引导过程中使用覆盖切换到 。
+53. `<base href>` `您必须向应用程序添加一个<base href>元素index.html才能使pushState路由正常工作。浏览器<base href>在引用 CSS 文件、脚本和图像时使用该值作为相对 URL 的前缀。`
+54. 组件模板里面的注释`<!-- -->`不会输出到页面。Comments in the template source code are not included in the rendered output `https://angular.dev/guide/templates#differences-from-standard-html`
+55. 单页应用，默认情况下，普通的web服务器，不能一开始就访问其他页面，例如不能一开始就访问 `http://localhost:3000/post/1;op1=1;op2=2?rp1=1&rp2=2`，会404，当然这个应该可以通过，web服务器的重定向来解决这个问题。
+56. 

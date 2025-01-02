@@ -36,6 +36,8 @@ In Angular, the `ng` stands for `Angular`.
 
 `<app-root></app-root>` 这种元素，就是一个Angular组件（实例）。`When an element is an Angular component, ...`
 
+Angular 单页应用 SPA 不会重复加载 页面，非常节省网站流量，有更快的加载速度，非常给力。
+
 1. Angular 应用是围绕组件构建的，组件是 Angular 的构建块。组件包含代码、HTML 布局和 CSS 样式信息，这些信息提供应用中元素的功能和外观。在 Angular 中，组件可以包含其他组件。应用的功能和外观可以划分并划分为组件。Angular apps are built around components, which are Angular's building blocks. `https://angular.dev/tutorials/first-app/02-HomeComponent`
 2. Angular 使用 TypeScript 来充分利用强类型编程环境。强类型检查可降低应用中的一个元素向另一个元素发送格式错误的数据的可能性。此类类型不匹配错误会被 TypeScript 编译器捕获，许多此类错误也可以在您的 IDE 中捕获。`https://angular.dev/tutorials/first-app/04-interfaces`
 3. `constructor` 是创建此组件时运行的第一个函数。The constructor is the first function that runs when this component is created. `https://angular.dev/tutorials/first-app/09-services`
@@ -652,3 +654,43 @@ const routes: Routes = [
 ```
 47. 防止未经授权的访问。使用路由守卫来防止用户未经授权导航到应用程序的某些部分。要使用路由保护，请考虑使用无组件路由，因为这有助于保护子路由。
 48. `https://angular.dev/guide/routing/common-router-tasks#link-parameters-array`
+49. Angular 单页应用 SPA 不用重复加载页面。
+```
+PS C:\Users\zhouhuajian\Desktop\first-app> npx serve .\dist\first-app\browser\
+
+   ┌──────────────────────────────────────────┐
+   │                                          │
+   │   Serving!                               │
+   │                                          │
+   │   - Local:    http://localhost:3000      │
+   │   - Network:  http://192.168.30.1:3000   │
+   │                                          │
+   │   Copied local address to clipboard!     │
+   │                                          │
+   └──────────────────────────────────────────┘
+
+ HTTP  02/01/2025 12:23:12 ::1 GET /  （页面只加载了一次）
+ HTTP  02/01/2025 12:23:12 ::1 Returned 200 in 27 ms
+ HTTP  02/01/2025 12:23:13 ::1 GET /polyfills-FFHMD2TL.js
+ HTTP  02/01/2025 12:23:13 ::1 GET /main-H6M6M7UM.js
+ HTTP  02/01/2025 12:23:13 ::1 GET /styles-GSBFIRKP.css
+ HTTP  02/01/2025 12:23:13 ::1 Returned 200 in 13 ms
+ HTTP  02/01/2025 12:23:13 ::1 Returned 200 in 10 ms
+ HTTP  02/01/2025 12:23:13 ::1 Returned 200 in 15 ms
+ HTTP  02/01/2025 12:23:13 ::1 GET /assets/logo.svg
+ HTTP  02/01/2025 12:23:13 ::1 Returned 200 in 21 ms
+ HTTP  02/01/2025 12:23:13 ::1 GET /assets/location-pin.svg
+ HTTP  02/01/2025 12:23:13 ::1 Returned 200 in 20 ms
+ HTTP  02/01/2025 12:23:15 ::1 GET /favicon.ico
+ HTTP  02/01/2025 12:23:15 ::1 Returned 200 in 38 ms
+ HTTP  02/01/2025 12:23:37 ::1 GET /favicon.ico
+ HTTP  02/01/2025 12:23:37 ::1 Returned 304 in 2 ms
+ HTTP  02/01/2025 12:24:10 ::1 GET /favicon.ico
+ HTTP  02/01/2025 12:24:10 ::1 Returned 304 in 6 ms
+ HTTP  02/01/2025 12:24:10 ::1 GET /assets/location-pin.svg
+ HTTP  02/01/2025 12:24:10 ::1 Returned 304 in 3 ms
+ HTTP  02/01/2025 12:24:19 ::1 GET /favicon.ico
+ HTTP  02/01/2025 12:24:19 ::1 Returned 304 in 1 ms
+ HTTP  02/01/2025 12:24:29 ::1 GET /favicon.ico
+ HTTP  02/01/2025 12:24:29 ::1 Returned 304 in 2 ms
+```

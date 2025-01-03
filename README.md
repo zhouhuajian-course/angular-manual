@@ -702,6 +702,8 @@ PS C:\Users\zhouhuajian\Desktop\first-app> npx serve .\dist\first-app\browser\
 路由 URL 中的必需和可选路由参数
 In summary, you can write applications with one, two or more levels of routing. The link parameters array affords the flexibility to represent any routing depth and any legal sequence of route paths, (required) router parameters, and (optional) route parameter objects.  
 ```html
+Navigate to <a routerLink="/@Angular">my profile</a>
+
 <a [routerLink]="['/heroes']">Heroes</a>
 <a [routerLink]="['/hero', hero.id]">
   <span class="badge">{{ hero.id }}</span>{{ hero.name }}
@@ -764,3 +766,40 @@ PS C:\Users\zhouhuajian\Desktop\first-app> npx serve .\dist\first-app\browser\
  HTTP  02/01/2025 18:23:44 ::1 GET /favicon.ico
  HTTP  02/01/2025 18:23:44 ::1 Returned 304 in 8 ms
 ```
+56. The Angular Router is an optional service that presents a particular component view for a given URL. It isn't part of the Angular core and thus is in its own library package, @angular/router.  
+Import what you need from it as you would from any other Angular package.
+Router 是一个可选的服务 service。
+57. A routed Angular application has one singleton instance of the Router service.  When the browser's URL changes, that router looks for a corresponding Route from which it can determine the component to display.A router has no routes until you configure it.  
+58. Each Route maps a URL path to a component. There are no leading slashes in the path. The router parses and builds the final URL for you, which lets you use both relative and absolute paths when navigating between application views.  
+59. Router outlet  
+The RouterOutlet is a directive from the router library that is used like a component. It acts as a placeholder that marks the spot in the template where the router should display the components for that outlet.
+```html
+<router-outlet></router-outlet>
+<!-- Routed components go here -->
+```
+Given the preceding configuration, when the browser URL for this application becomes /heroes, the router matches that URL to the route path /heroes and displays the HeroListComponent as a sibling element to the RouterOutlet that you've placed in the host component's template.  
+60. Had the navigation path been more dynamic, you could have bound to a template expression that returned an array of route link parameters; that is, the link parameters array. The router resolves that array into a complete URL.
+61. Active router links  
+The RouterLinkActive directive toggles CSS classes for active RouterLink bindings based on the current RouterState.  
+On each anchor tag, you see a property binding to the RouterLinkActive directive that looks like  
+```html
+routerLinkActive="..."
+```
+The template expression to the right of the equal sign, =, contains a space-delimited string of CSS classes that the Router adds when this link is active and removes when the link is inactive. You set the RouterLinkActive directive to a string of classes such as routerLinkActive="active fluffy" or bind it to a component property that returns such a string. For example,
+```html
+[routerLinkActive]="someStringProperty"
+```
+Active route links cascade down through each level of the route tree, so parent and child router links can be active at the same time. To override this behavior, bind to the `[routerLinkActiveOptions]` input binding with the { exact: true } expression. By using { exact: true }, a given RouterLink is only active if its URL is an exact match to the current URL.
+62. `provideRouter` provides the necessary service providers for navigating through application views.
+63. `RouterLink`	The directive for binding a clickable HTML element to a route. Clicking an element with a routerLink directive that's bound to a string or a link parameters array triggers a navigation.
+64. `ActivatedRoute`	A service that's provided to each route component that contains route specific information such as route parameters, static data, resolve data, global query parameters, and the global fragment.
+65. `Routing component`	An Angular component with a RouterOutlet that displays views based on router navigations.
+66. Router state  
+After the end of each successful navigation lifecycle, the router builds a tree of ActivatedRoute objects that make up the current state of the router. You can access the current RouterState from anywhere in the application using the Router service and the routerState property.  
+Each ActivatedRoute in the RouterState provides methods to traverse up and down the route tree to get information from parent, child, and sibling routes.
+67. The routerLink directive enables Angular's router to create dynamic links in the application. 
+68. This code gives the DetailsComponent access to the ActivatedRoute router feature that enables you to have access to the data about the current route. 
+69. Notice that the housingLocation properties are being accessed with the optional chaining operator ?. This ensures that if the housingLocation value is null or undefined the application doesn't crash.
+
+
+todo: service provider 、router、Observable the router builds a tree of ActivatedRoute objects that make up the current state of the router.

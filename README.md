@@ -800,6 +800,59 @@ Each ActivatedRoute in the RouterState provides methods to traverse up and down 
 67. The routerLink directive enables Angular's router to create dynamic links in the application.   
 68. This code gives the DetailsComponent access to the ActivatedRoute router feature that enables you to have access to the data about the current route.   
 69. Notice that the housingLocation properties are being accessed with the optional chaining operator ?. This ensures that if the housingLocation value is null or undefined the application doesn't crash.  
+70. 这个 ipt 就是表示 `<input>` 元素，跟 `document.querySelector()` 拿到的一样
+```html
+      <form>
+        <input type="text" placeholder="Filter by city" #ipt />
+        <button class="primary" type="button" (click)="filterResults(ipt.value)">Search</button>
+      </form>
+```
+71. Angular has two types of variable declarations in templates: local template variables and template reference variables.
+局部模板变量和模板引用变量
+@let和 JavaScript 的一个关键区别let是，@let声明后不能重新赋值。但是，Angular 会自动根据给定的表达式更新变量的值。
+```html
+@let value = 1;
+<!-- Invalid - This does not work! -->
+<button (click)="value = value + 1">Increment the value</button>
+```
+模板引用变量可以引用以下内容： 
+```text
+模板内的 DOM 元素（包括自定义元素）  
+Angular 组件或指令  
+来自ng-template的TemplateRef
+```
+```html
+<!-- Create a template reference variable named "taskInput", referring to the HTMLInputElement. -->
+<input #taskInput placeholder="Enter task name">
+```
+如果在 Angular 组件上声明变量，则该变量指的是组件实例。
+```html
+<!-- The `startDate` variable is assigned the instance of `MyDatepicker`. -->
+<my-datepicker #startDate />
+```
+如果您在元素上声明变量<ng-template>，则该变量引用代表模板的 TemplateRef 实例。
+```html
+<!-- The `myFragment` variable is assigned the `TemplateRef` instance corresponding to this template fragment. -->
+<ng-template #myFragment>
+  <p>This is a template fragment</p>
+</ng-template>
+```
+如果在任何其他显示元素上声明变量，则该变量引用该HTMLElement实例。
+```html
+<!-- The "taskInput" variable refers to the HTMLInputElement instance. -->
+<input #taskInput placeholder="Enter task name">
+```
+72. @ViewChild
+```
+作用：
+获取组件或指令实例：通过 @ViewChild 你可以很方便地获取模板中子组件的实例，从而调用这个子组件的方法或是访问它的属性。
+操作 DOM 元素：有时你需要直接操作 DOM 元素，例如设置焦点或更改样式。通过 @ViewChild，你可以在代码中直接引用到模板中的元素。
+访问模板引用变量：在模板中定义的引用变量（通过 # 语法），可以通过 @ViewChild 在组件类中获取，从而进行更复杂的操作和逻辑处理。
+```
+73. （未验证，来自网络）Angular一共提供了19中内置的装饰器，其中有5个类装饰器、6个属性装饰器、2个方法装饰器和6个参数装饰器。
 
 
-todo: service provider 、router、Observable the router builds a tree of ActivatedRoute objects that make up the current state of the router.
+
+
+
+todo: @Injectable、service provider 、router、Observable the router builds a tree of ActivatedRoute objects that make up the current state of the router.

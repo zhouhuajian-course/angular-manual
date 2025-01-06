@@ -849,6 +849,15 @@ Angular 组件或指令
 操作 DOM 元素：有时你需要直接操作 DOM 元素，例如设置焦点或更改样式。通过 @ViewChild，你可以在代码中直接引用到模板中的元素。
 访问模板引用变量：在模板中定义的引用变量（通过 # 语法），可以通过 @ViewChild 在组件类中获取，从而进行更复杂的操作和逻辑处理。
 ```
+```text
+export interface ViewChildDecorator {
+  /**
+   * @description
+   * Property decorator that configures a view query.
+   * The change detector looks for the first element or the directive matching the selector
+   * in the view DOM. If the view DOM changes, and a new child matches the selector,
+   * the property is updated.
+```
 73. （未验证，来自网络）Angular一共提供了19中内置的装饰器，其中有5个类装饰器、6个属性装饰器、2个方法装饰器和6个参数装饰器。
 
 

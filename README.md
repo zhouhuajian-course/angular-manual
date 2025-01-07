@@ -859,6 +859,64 @@ export interface ViewChildDecorator {
    * the property is updated.
 ```
 73. （未验证，来自网络）Angular一共提供了19中内置的装饰器，其中有5个类装饰器、6个属性装饰器、2个方法装饰器和6个参数装饰器。
+74. HttpClient  
+默认情况下，HttpClient使用XMLHttpRequestAPI 发出请求。此withFetch功能可让客户端改为使用fetchAPI。fetch是一种更现代的 API，可用于一些XMLHttpRequest不支持的环境。但它也有一些限制，例如不产生上传进度事件。  
+```typescript
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideHttpClient(
+      withFetch(),
+    ),
+  ]
+};
+```
+withJsonpSupport()  
+包括withJsonpSupport启用.jsonp()的方法，该方法通过JSONP 约定HttpClient发出 GET 请求，用于跨域加载数据。
+有帮助：如果可能的话，最好使用CORS而不是 JSONP 进行跨域请求。  
+进度事件默认是禁用的（因为它们会影响性能），但可以通过reportProgress选项启用。  
+注意：fetch的可选实现HttpClient不报告上传进度事件。  
+HTTP 请求失败的原因有两种：  
+网络或连接错误可能会阻止请求到达后端服务器。  
+后端可以接收请求但无法处理，并返回错误响应。  
+有时，网络中断等瞬态错误可能会导致请求意外失败，只需重试请求即可使其成功。RxJS 提供了几个重试运算符，可在特定条件下自动重新订阅失败的请求Observable。例如，retry()运算符将自动尝试重新订阅指定的次数。  
+HttpClient产生 RxJS 所称的“冷” Observable，这意味着在Observable订阅之前不会发生任何实际请求。只有这样，请求才会真正发送到服务器。Observable多次订阅同一个 会触发多个后端请求。每个订阅都是独立的。  
+订阅后，取消订阅将中止正在进行的请求。如果Observable通过async管道订阅了，这将非常有用，因为如果用户离开当前页面，它将自动取消请求。此外，如果您将Observable与 RxJS 组合器（如）一起使用switchMap，则此取消将清除所有过时的请求。  
+一旦响应返回，ObservablesHttpClient通常就完成了（尽管拦截器可以影响这一点）。    
+由于自动完成，如果不清理订阅，通常不会有内存泄漏的风险HttpClient。但是，与任何异步操作一样，我们强烈建议您在使用订阅的组件被销毁时清理订阅，否则订阅回调可能会运行并在尝试与被销毁的组件交互时遇到错误。  
+提示：使用async管道或toSignal操作订阅Observables 可确保正确处理订阅  
+75. HttpClient 最佳实践  https://angular.dev/guide/http/making-requests#best-practices  
+虽然HttpClient可以直接从组件注入和使用，但通常我们建议您创建可重复使用的可注入服务，以隔离和封装数据访问逻辑。例如，这UserService封装了通过用户 ID 请求用户数据的逻辑：  
+```typescript
+@Injectable({providedIn: 'root'})
+export class UserService {
+  constructor(private http: HttpClient) {}
+  getUser(id: string): Observable<User> {
+    return this.http.get<User>(`/api/user/${id}`);
+  }
+}
+```
+在组件内，您可以结合@if管道async，仅在数据加载完成后才呈现数据 UI：
+```typescript
+import { AsyncPipe } from '@angular/common';
+@Component({
+  imports: [AsyncPipe],
+  template: `
+    @if (user$ | async; as user) {
+      <p>Name: {{ user.name }}</p>
+      <p>Biography: {{ user.biography }}</p>
+    }
+  `,
+})
+export class UserProfileComponent {
+  @Input() userId!: string;
+  user$!: Observable<User>;
+  constructor(private userService: UserService) {}
+  ngOnInit(): void {
+    this.user$ = this.userService.getUser(this.userId);
+  }
+}
+```
+
 
 
 

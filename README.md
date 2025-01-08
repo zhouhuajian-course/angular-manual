@@ -916,7 +916,9 @@ export class UserProfileComponent {
   }
 }
 ```
-
+76. 使用 ng-content 插入子内容 Slotting child content with ng-content `https://angular.dev/guide/templates/ng-content`
+77. 使用 ng-template 创建模板片段 Create template fragments with ng-template `https://angular.dev/guide/templates/ng-template`
+78. 使用 ng-container 对元素进行分组 Grouping elements with ng-container `https://angular.dev/guide/templates/ng-container`
 
 
 
